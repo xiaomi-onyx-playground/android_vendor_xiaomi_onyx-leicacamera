@@ -1,15 +1,15 @@
 # Rules harvested from real enforcing-mode avc denials on the POCO F7 (onyx); both platform_app (ROM build, platform key) and priv_app (testkey-signed KernelSU/ADB user update) are covered.
 
 # platform_app: the capture handoff is bidirectional - the app registers a callback with the HAL (MiCamService BGService) and the provider calls back into it; missing the callback transfer stalls PostProcessor 12s on 'App buffer is not enough' -> onCaptureFailed.
-allow platform_app_36 hal_camera_default:binder { call transfer };
-allow platform_app_36 hal_camera_default:fd { use };
-allow hal_camera_default platform_app_36:binder { call transfer };
-allow hal_camera_default platform_app_36:fd { use };
+allow platform_app hal_camera_default:binder { call transfer };
+allow platform_app hal_camera_default:fd { use };
+allow hal_camera_default platform_app:binder { call transfer };
+allow hal_camera_default platform_app:fd { use };
 
 # The app-side c2-store find needs no rule here: labelling vendor0_software as hal_codec2_service in service_contexts puts it under the platform hal_codec2_client attribute, which already covers every non-isolated app domain.
 
 # The watermark / filter assets under /data/vendor/camera are mmap'd, not just read
-allow platform_app_36 vendor_camera_data_file:file { getattr open read map };
+allow platform_app vendor_camera_data_file:file { getattr open read map };
 
 # ------------------------------------------------------------------- priv_app
 allow priv_app hal_camera_default:binder { call transfer };

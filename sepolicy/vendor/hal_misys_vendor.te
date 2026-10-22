@@ -11,4 +11,4 @@ allow hal_misys_vendor mnt_vendor_file:dir search;
 allow hal_misys_vendor vendor_camera_data_file:dir create_dir_perms;
 allow hal_misys_vendor vendor_camera_data_file:file create_file_perms;
 allow hal_misys_vendor appdomain:fd use;
-allow platform_app_36 hal_misys_vendor_service:service_manager find;
+allow platform_app hal_misys_vendor_service:service_manager find;
